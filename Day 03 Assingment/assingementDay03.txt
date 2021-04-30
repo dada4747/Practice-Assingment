@@ -1,0 +1,205 @@
+// Q. Move file from one folder to respective folder
+//mvfiletofolder.sh
+
+#! /bin/bash
+
+for file in $( ls *.txt ) # abc.txt
+do
+        echo "file:$file" #  abc.txt
+        baseName=$( echo $file | awk -F. '{ print $1}') #abc
+        echo "baseName:$baseName"
+
+        #selection
+        if [ -d $baseName ] # if [ -d abc ]
+        then
+                rm -r $baseName  # mkdir -r abc/
+        fi
+        #create folder andx copy
+        mkdir $baseName
+        cp $file $baseName
+done
+
+
+
+======================================================================
+Q. Append current date to all log files name which has extension .log.1 from a folder
+
+ GNU nano 5.6.1                                     ra.sh
+
+#!/bin/bash -x
+
+now=$(date +"%m_%d_%Y")
+for file in $( ls *.log.1 )
+do
+        baseName=$( echo $file | awk -F. '{ print $1}')
+
+        mv -- "$file" "$baseName$now .log.1"
+        echo "Starting backup to $file..."
+        
+done
+
+/*output*/
+user@DESKTOP-4IPP4FC MINGW64 ~/TerminalCommands/linux-content/stage1/appendproblem (master)
+$ bash -x ra.sh
+++ date +%m_%d_%Y
++ _now=04_20_2021
+++ ls abc04_20_2021.log.1 def04_20_2021.log.1 ghi04_20_2021.log.1 jkl04_20_2021.log.1 mno04_20_2021.log.1
++ for file in $( ls *.log.1 )
+++ echo abc04_20_2021.log.1
+++ awk -F. '{ print $1}'
++ baseName=abc04_20_2021
++ mv -- abc04_20_2021.log.1 abc04_20_202104_20_2021.log.1
++ echo 'Starting backup to ...'
+Starting backup to ...
++ for file in $( ls *.log.1 )
+++ echo def04_20_2021.log.1
+++ awk -F. '{ print $1}'
++ baseName=def04_20_2021
++ mv -- def04_20_2021.log.1 def04_20_202104_20_2021.log.1
++ echo 'Starting backup to ...'
+Starting backup to ...
++ for file in $( ls *.log.1 )
+++ echo ghi04_20_2021.log.1
+++ awk -F. '{ print $1}'
++ baseName=ghi04_20_2021
++ mv -- ghi04_20_2021.log.1 ghi04_20_202104_20_2021.log.1
++ echo 'Starting backup to ...'
+Starting backup to ...
++ for file in $( ls *.log.1 )
+++ echo jkl04_20_2021.log.1
+++ awk -F. '{ print $1}'
++ baseName=jkl04_20_2021
++ mv -- jkl04_20_2021.log.1 jkl04_20_202104_20_2021.log.1
++ echo 'Starting backup to ...'
+Starting backup to ...
++ for file in $( ls *.log.1 )
+++ echo mno04_20_2021.log.1
+++ awk -F. '{ print $1}'
++ baseName=mno04_20_2021
++ mv -- mno04_20_2021.log.1 mno04_20_202104_20_2021.log.1
++ echo 'Starting backup to ...'
+Starting backup to ...
+
+
+
+
+
+========================================================================
+Q  Archive the files from /var/log folder which have modified 7 days ago and move it to your backup folder
+#! /bin/bash -x
+
+for file in $( find  -type f -mtime -10 -ls)
+do
+        mv "$file" "/backup"
+done
+========================================================================
+Q Check if a folder exist or not . if its not present create it 
+Command
+
+ [[ -f arc.sh ]] && echo "This file exists!"
+
+========================================================================
+Q print last 4 frequently access urls count in sorted order from access.log
+Command-
+$ cat access.log | awk '{print $11}' | sort -n | sort -nr | head -4
+
+OUTPUT-
+
+"https://fundoopush-dev.bridgelabz.com/login"
+"https://fundoopush-dev.bridgelabz.com/login"
+"https://fundoopush-dev.bridgelabz.com/login"
+"https://fundoopush-dev.bridgelabz.com/login"
+
+
+
+========================================================================
+Q print list of last 4 access unique urls at particular hours from access.log
+Command-
+
+$ cat access.log | awk '{print $11}' | sort -n | uniq -c | sort -nr | tail -4
+
+OUTPUT-
+
+      4 "http://fundoopush-dev.bridgelabz.com/wp-login.php"
+      2 "http://fundoopush-dev.bridgelabz.com/.well-known/acme-challenge/4xM-Y1899BrBIJ76P5Er2sj2VhEtyi_DFvfo6xiMXXw"
+      1 "https://fundoopush-dev.bridgelabz.com/dashboard/hashtags/animals"
+      1 "https://fundoopush-dev.bridgelabz.com/dashboard/archive"
+========================================================================
+Q print last 4 sorted client ip from access.log
+
+grep -o "[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+" access.log |uniq -c | sort -nr | head -4
+OUTPUT-  1 77.0.3865.92
+      1 77.0.3865.92
+      1 77.0.3865.92
+      1 77.0.3865.92
+
+========================================================================
+Q Execute command “hello ” and “”ls” and check its execution status and print whether command executed successful or not
+Command-
+1)
+$ echo hello
+Hello
+OUtput-
+$ echo $?
+0// 0 indicate execute successfully
+2)
+$ ls
+ProgramRepetation/  access.log  fruits.txt            linux_problem_sheet.pdf  stage1/
+OUTPUT-
+
+$ echo $?
+0
+========================================================================
+Q Set environment usersecret=”dH34xJaa23” if its already not set
+Command to check
+$ printenv usersecret
+//null if not set 
+Command to set 
+ $ env usersecret="dH34xJaa23"
+========================================================================
+Q find a word “systemd” from all log files in the folder and print number of occurrence more than 0 against each file.
+Command-
+
+$ grep -wc "systemd" access.log
+0
+========================================================================
+Q Create process list table displays process id, parent process id, command name, % of memory consumption, % of cpu utilization.
+
+$ ps -eo pid,ppid,cmd,%mem,%cpu
+========================================================================
+Q Data analysis / manipulation(AWK)
+i) print EmployeeName and TotalPay who has BasePay greater than 100000
+
+$ awk '$4 > 100000 { print $2 "    " $7 }' data.csv
+
+ii)what is the aggregate totalpay of employees whose jobtitle is ‘CAPTAIN’
+
+$ awk '$3 == "CAPTAIN" {sum=sum+$7} END { print sum }' data.csv
+1171796
+iii) print jobtitle and overtimepay who has overtimepay is between 7000 and10000
+
+$ awk ' $5>7000 && $5<10000 { print $3 "    " $5 }' data.csv
+DEPUTYCHIEF    9737
+ASSTDEPUTY    8601
+
+iv)print average base salary
+	$ awk ' {sum=sum+$4 } { avg = sum / 13 } END { print avg }' data.csv
+   145821
+
+
+========================================================================
+ Q Find the diff between original file and the updated file 
+Apply changes to the original file.
+
+$ diff original/original.sh updated/update.sh
+1,2c1,3
+< #! /bin/bash
+< echo "hellow this is original file"
+---
+> #! /bin/bash -x
+> read -p "enter number" a
+> echo "$a"
+
+========================================================================
+
+

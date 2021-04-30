@@ -1,0 +1,171 @@
+Q1. Write a program in the following steps
+10 3 digit random numbers
+Store this into array
+Find sec smallest and sec largest element from array
+
+#! /bin/bash -x
+array=$((RANDOM%(900)+100))
+
+for ((i=0;i<10;i++))
+do
+        array[i]=$((RANDOM % (900) + 100 ))
+
+done
+for i in ${array[@]}
+do
+        echo "$i"
+done
+
+
+echo ${!array[@]}
+echo ${#array[@]}
+largest=${array[0]}
+secondLargest=''
+for((i=1; i < ${#array[@]}; i++))
+do
+        if [[ ${array[i]} > $largest ]]
+        then
+                secondLargest=$largest
+                largest=${array[i]}
+        elif (( ${array[i]} != $largest )) && { [[ "$secondLargest" = "" ]] || [[ ${array[i]} > $secon>
+        then
+                secondLargest=${array[i]}
+        fi
+done
+echo "secondlargest= $secondLargest "
+
+small=${array[0]}
+secsmall=''
+
+for((i=1; i < ${#array[@]}; i++))
+do
+        if [[ ${array[i]} < $small ]]
+        then
+                secsmall=$small
+                small=${array[i]}
+        elif (( ${array[i]} != $small )) && { [[ "$secsmall" = "" ]] || [[ ${array[i]} < $secsmall ]] >
+        then
+                secsmall=${array[i]}
+        fi
+done
+echo "second smallest = $secsmall "
+
+
+----------------------------------
+Output-
+$ bash  sevenOne.sh
+354
+205
+695
+492
+540
+974
+518
+832
+677
+368
+index of element 0 1 2 3 4 5 6 7 8 9
+total number of element 10
+secondlargest= 832
+second smallest = 354
+
+___________________________________________________________________________
+Q 2. Extend the above program to sort the array and then find 2nd largest and 2nd smallest element.
+ -------
+#! /bin/bash -x
+for ((i=0;i<10;i++))
+do
+        array[i]=$((RANDOM % (900) + 100 ))
+
+done
+for i in ${array[@]}
+do
+        echo "$i"
+done
+
+echo "Array of element is ${array[*]}"
+for((i=0;i<10;i++))
+do
+        for((j=0;j<10-i-1;j++))
+        do
+                if [ ${array[j]} -gt ${array[$((j+1))]} ]
+                then
+                        temp=${array[j]}
+                        array[$j]=${array[$((j+1))]}
+                        array[$((j+1))]=$temp
+                fi
+        done
+done
+echo "Sorted array list is :"
+echo ${array[*]}
+echo "Second smallest element is ${array[1]} "
+lastelement=${#array[*]}
+echo "Second greatest element is ${array[$lastelement - 2]} "
+
+
+-------
+$ bash sevenTwo.sh
+787
+923
+571
+969
+110
+377
+347
+824
+905
+609
+Array of element is 787 923 571 969 110 377 347 824 905 609
+Sorted array list is :
+110 347 377 571 609 787 824 905 923 969
+Second smallest element is 347
+Second greatest element is 923
+
+____________________________________________________________________________
+
+3. Extend the prime factorization program to store all the prime factors of a number n into an array and finally display the output.
+#! /bin/bash -x
+
+echo "enter an integer:"
+read input
+if [ $input -lt 1 ];then
+echo "not allowed!"
+exit 1
+fi
+# find factors and prime
+
+i=2
+count=0
+flag=0
+for ((i;i<$input;));do
+
+  if [ `expr $input % $i` -eq 0 ];then
+      factor=$i
+
+  for ((j=2;j<=`expr $factor / 2`;));do
+      flag=0
+      if [ `expr $factor % $j` -eq 0 ];then
+      flag=1
+      break
+      fi
+      j=`expr $j + 1`
+  done
+  if [ $flag -eq 0 ];then
+  echo "[ $factor ]"
+  count=1
+  fi
+  fi
+  i=`expr $i + 1`
+  done
+  if [ $count -eq 0 ];then
+  echo "no prime factors found except 1 and $input"
+  fi
+
+
+
+4. Write a program to show sum of three integer adds to zero
+
+
+5. Take a range from 0 - 100, find the digits that are repeated twice like 33, 77, etc and store them in an array.
+
+ 

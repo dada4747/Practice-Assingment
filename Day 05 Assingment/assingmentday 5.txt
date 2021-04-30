@@ -1,0 +1,470 @@
+Use random function {{ RANDOM}} to get single digit.
+	
+	echo ${RANDOM:0:1}
+
+Use Random to get dice number between 1 to 6
+
+$ echo $(( ( RANDOM % 6 )  + 1 ))
+
+
+Add two random number and print the result
+
+#! /bin/bash -x
+
+dice1=$((RANDOM%6))
+dice2=$((RANDOM%6))
+sum=$((dice1+dice2))
+echo $sum	
+
+Write a program taht reads 5 random 3 digit value then find their sum and average
+#! bin/bash
+var2=0
+for i in 1 2 3 4 5
+do
+var=" $(( RANDOM % (90) + 10 ))"
+var2=$(($var2 + $var)) 
+done
+var3=$(($var2/5))
+echo "sum is :$var2"
+echo "average is :$var3"
+
+ 
+Unit Conversion
+1ft =12 in then 42 in = ?ft
+
+#! /bin/bash -x
+read -p "enter the inches" a
+feet=$(( $a / 12 ))
+echo "feet is :$feet"
+
+
+Rectangular Plot of 60 feet x 40 feet in meters
+
+
+Calculate area of 25 such plots in acres 
+========================================================================
+				SELECTION PRACTICE PROBLEM WITH IF ELSE
+Write a program that read 5 random 3digit values and then output the min and max value
+Code-
+#! /bin/bash -x
+
+
+var[0]="$(( RANDOM % (900) + 100 ))"
+var[1]="$(( RANDOM % (900) + 100 ))"
+var[2]="$(( RANDOM % (900) + 100 ))"
+var[3]="$(( RANDOM % (900) + 100 ))"
+var[4]="$(( RANDOM % (900) + 100 ))"
+
+min=${var[0]}
+max=${var[0]}
+
+for i in ${var[@]}
+do
+        if [[ $i -lt $min ]] ;then
+
+                min=$i
+        elif [[ $i -gt $max ]] ; then
+                max=$i
+        fi
+done
+
+echo "min is :$min"
+echo "max is :$max"
+
+
+---output----
+$ bash -x third.sh
++ var[0]=362
++ var[1]=329
++ var[2]=480
++ var[3]=422
++ var[4]=339
++ min=362
++ max=362
++ for i in ${var[@]}
++ [[ 362 -lt 362 ]]
++ [[ 362 -gt 362 ]]
++ for i in ${var[@]}
++ [[ 329 -lt 362 ]]
++ min=329
++ for i in ${var[@]}
++ [[ 480 -lt 329 ]]
++ [[ 480 -gt 362 ]]
++ max=480
++ for i in ${var[@]}
++ [[ 422 -lt 329 ]]
++ [[ 422 -gt 480 ]]
++ for i in ${var[@]}
++ [[ 339 -lt 329 ]]
++ [[ 339 -gt 480 ]]
++ echo 'min is :329'
+min is :329
++ echo 'max is :480'
+max is :480
+
+ ================================================================
+Write a program that takes day and month fromm the command line and prints true if day of month is between March 20 and June 20, false otherwise.
+
+
+----program---
+
+#! /bin/bash -x
+
+read -p "Enter Date : " date
+read -p "Enter Month : " month
+
+if (( ($month <= 6 & $date <=20) ))
+then
+        echo $date $month "true";
+elif (( ($month >= 3 & $month < 6) & ( $date<20) ))
+then
+        echo $date $month "true"
+else
+        echo "false";
+fi
+
+-----output-------
+$ bash -x fourth.sh
++ read -p 'Enter Date : ' date
+Enter Date : 16
++ read -p 'Enter Month : ' month
+Enter Month : 5
++ ((  (5 <= 6 & 16 <=20)  ))
++ echo 16 5 true
+16 5 true
+
+===================================================================
+Write a program that takes a year as input and output the year is a leap year or not a leap year. A leap year checks for 4 digit number, divisible by 4 and not 100 unless divisible by 400.
+	----program----
+	#! /bin/bash -x
+
+read -p "enter a year :" year
+
+if [ $((year % 4)) -ne 0 ]
+        then
+        echo "not leap"
+elif [ $((year % 400)) -eq 0 ]
+         then
+        echo "leap"
+elif [ $((year % 100)) -eq 0 ]
+        then
+        echo "not leap"
+else
+        echo "leap"
+fi
+
+
+	----output----
+	$ bash -x five.sh
++ read -p 'enter a year :' year
+enter a year :2024
++ '[' 0 -ne 0 ']'
++ '[' 24 -eq 0 ']'
++ '[' 24 -eq 0 ']'
++ echo leap
+leap
+
+
+
+Write a program to simulate a coin flip and print out  “head” or “tail” accordingly.
+  GNU nano 5.6.1                                   six.sh
+#! /bin/bash -x
+flipcoin=$((RANDOM%2))
+if [[ ${flipcoin} -eq 0 ]]
+        then
+        echo "head"
+elif [[ ${flipcoin} -eq 1 ]]
+        then
+        echo "tail"
+fi
+
+
+
+
+---output----
+$ bash six.sh
+tail
+
+=================================================================== 
+SELECTION PRACTICE PROBLEMS WITH if, elif and else 
+Read a single digit number and write the number in word 
+----Programm------
+#! /bin/bash -x
+read -p  "enter single digit number :" n
+
+if [[ $n -eq 1 ]]
+then
+        echo "One"
+elif [[ $n -eq 2 ]]
+then
+        echo "Two"
+elif [[ $n -eq 3 ]]
+then
+        echo "Three"
+elif [[ $n -eq 4 ]]
+then
+        echo "Four"
+elif [[ $n -eq 5 ]]
+then
+        echo "Five"
+elif [[ $n -eq 6 ]]
+then
+        echo "Six"
+elif [[ $n -eq 7 ]]
+then
+        echo "Seven"
+elif [[ $n -eq 8 ]]
+then
+        echo "Eight"
+elif [[ $n -eq 9 ]]
+then
+        echo "Nine"
+
+fi
+
+
+
+
+----output----
+$ bash -x secondone.sh
++ read -p 'enter single digit number :' n
+enter single digit number :5
++ [[ 5 -eq 1 ]]
++ [[ 5 -eq 2 ]]
++ [[ 5 -eq 3 ]]
++ [[ 5 -eq 4 ]]
++ [[ 5 -eq 5 ]]
++ echo Five
+Five
+
+---------------------------------------------------------------------------------------------------------------------
+Read a number and display the week day( Sunday, Monday, …...)
+----program----
+#! /bin/bash -x
+read -p "Enter the number day of week " n
+
+if [[ $n -eq 1 ]]
+then
+        echo "Monday"
+elif [[ $n -eq 2 ]]
+then
+        echo "Teusday"
+elif [[ $n -eq 3 ]]
+then
+        echo "wedsday"
+elif [[ $n -eq 4 ]]
+then
+        echo "thursday"
+elif [[ $n -eq 5 ]]
+then
+        echo "Friday"
+elif [[ $n -eq 6 ]]
+then
+        echo "Saturday"
+elif [[ $n -eq 7 ]]
+then
+        echo "Sunday"
+fi
+
+---output----
+$ bash scondtwo.sh
+Enter the number day of week 5
+Friday
+
+
+--------------------------------------------------------------------------------------------------------------------
+Read a number 1,10,100,1000,etc and display unit, ten hundred,.....
+#! /bin/bash -x
+read -p "enter the number from 1, 10, 100, 1000, 10000 :" n
+if [[ $n -eq 1 ]]
+then
+        echo "one"
+
+elif [[ $n -eq 10 ]]
+then
+        echo "Ten"
+
+elif [[ $n -eq 100 ]]
+then
+        echo "Hundred"
+
+
+elif [[ $n -eq 1000 ]]
+then
+        echo "Thousand"
+
+
+elif [[ $n -eq 10000 ]]
+then
+        echo "Ten Thousand"
+fi
+----output----
+$ bash secondthree.sh
+enter the number from 1, 10, 100, 1000, 10000 :100
+Hundred
+---------------------------------------------------------------------------------------------------------------------
+Enter 3 number do following arithmetic operation and find the one that is maximum and minimum
+1.a+b*c
+2.a%b+c
+3.c+s/b
+4.a*b+c
+----programm----
+#! /bin/bash -x
+read -p "Enter first number" a
+read -p "Enter second number" b
+read -p "Enter third number" c
+
+res1=$(( a+(b*c)))
+res2=$(((a%b)+c))
+res3=$((c+(s/b)))
+res4=$(((a*b)+c))
+
+if [[ $res1 -gt $res2 ]] && [[ $res1 -gt $res3 ]] && [[ $res1 -gt $res4 ]]
+then
+echo "max:$res1"
+elif [[ $res2 -gt $res1 ]] && [[ $res2 -gt $res3 ]] && [[ $res2 -gt $res4 ]]
+then
+echo "max:$res2"
+elif [[ $res3 -gt $res1 ]] && [[ $res3 -gt $res2 ]] && [[ $res3 -gt $res4 ]]
+then
+echo "max:$res3"
+fi
+
+if [[ $res1 -lt $res2 ]] && [[ $res1 -lt $res3 ]] && [[ $res1 -lt $res4 ]]
+then
+echo "min:$res1"
+elif [[ $res2 -lt $res1 ]] && [[ $res2 -lt $res3 ]] && [[ $res2 -lt $res4 ]]
+then
+echo "min:$res2"
+elif [[ $res3 -lt $res1 ]] && [[ $res3 -lt $res2 ]] && [[ $res3 -lt $res4 ]]
+then
+echo "min:$res3"
+fi
+
+---output----	
+$ bash -x secondforth.sh
++ read -p 'Enter first number' a
+Enter first number2
++ read -p 'Enter second number' b
+Enter second number3
++ read -p 'Enter third number' c
+Enter third number6
++ res1=20
++ res2=8
++ res3=6
++ res4=12
++ [[ 20 -gt 8 ]]
++ [[ 20 -gt 6 ]]
++ [[ 20 -gt 12 ]]
++ echo max:20
+max:20
++ [[ 20 -lt 8 ]]
++ [[ 8 -lt 20 ]]
++ [[ 8 -lt 6 ]]
++ [[ 6 -lt 20 ]]
++ [[ 6 -lt 8 ]]
++ [[ 6 -lt 12 ]]
++ echo min:6
+min:6
+
+========================================================================
+Selection practice problems with case statement
+1.Read a single digit number and write the number in word using case
+#! /bin/bash -x
+read -p "enter number between 1 to 9" choice
+case $choice in
+        1) echo "Number is: One";;
+        2) echo "Number is: Two";;
+        3) echo "Number is: Three";;
+        4) echo "Number is: Four";;
+        5) echo "Number is: Five";;
+        6) echo "Number is: Six";;
+        7) echo "Number is: Seven";;
+        8) echo "Number is: Eight";;
+        9) echo "Number is: Nine";;
+        *) echo "Number is invalid";;
+esac
+
+---output----
+$ bash -x thirdone.sh
++ read -p 'enter number between 1 to 9' choice
+enter number between 1 to 95
++ case $choice in
++ echo 'Number is: Five'
+Number is: Five
+
+2. Read a number and display the week day (Sunday, monday , ….)
+#! /bin/bash -x
+read -p "choose number of the day in week " choice
+
+case $choice in
+        1) echo "you choose Sunday";;
+        2) echo "you choose Monday";;
+        3) echo "you choose Teusday";;
+        4) echo "you choose Wednesday";;
+        5) echo "you choose thursday";;
+        6) echo "you choose Friday" ;;
+        7) echo "you choose Saturday";;
+        *) echo "invalid number";;
+esac
+
+-----output----
+$ bash thirdtwo.sh
+choose number of the day in week 4
+you choose Wednesday
+
+
+3. Read a number 1,10,100,1000 etc and display unit ten, hundred,..
+#! /bin/bash -x
+read -p "choose number from 1, 10, 100, 1000 : " choice
+
+case $choice in
+        1) echo "One";;
+        10) echo "ten";;
+        100) echo "Hundred";;
+        1000) echo "Thousand";;
+        *) echo "invalid number";;
+esac
+-----output
+$ choose number from 1, 10, 100, 1000 : 100
+Hundred
+
+4. Writer a program that takes user input and does unit conversion of diff length units
+1.feet to inch
+2.feet to meter
+3.inch to feet
+4.meter to feet
+----------------------------------------------------------[
+#! /bin/bash -x
+echo "1. Feet to Inch:"
+echo "2. Feet to Meter:"
+echo "3. Inch to feet:"
+echo "4. meter to feet:"
+read -p "enter your choice: " choice
+read -p "enter the number for conversion:" n
+
+case $choice in
+        1) res=$(( n * 12 ))
+                echo "inches is : $res" ;;
+        2) res=$(( n / 3.2808 ))
+                echo "meter is : $res";;
+        3) res=$(( n / 12 ))
+                echo " feet is : $res";;
+        4) res=$(( n / 0.3048))
+                echo "feet is : $res";;
+esac
+
+
+-----output----
+$ bash thirdfour.sh
+1. Feet to Inch:
+2. Feet to Meter:
+3. Inch to feet:
+4. meter to feet:
+enter your choice: 1
+enter the number for conversion:3
+inches is : 36
+
+
+
+
