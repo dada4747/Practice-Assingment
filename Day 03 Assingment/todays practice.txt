@@ -1,0 +1,141 @@
+read each file extension .txt and 
+Q. Move file from one folder to respective folder
+
+$ for file in `ls *.txt`;				#using for loop read each file of .txt
+> do							#start do	
+> foldername=` echo $file | awk -F. '{ print $1 }' `;	#using awk to read filename into foldername variable
+> mkdir $foldername;					#making directory with filename 
+> cp $file $foldername/;				#coping file into folder using $foldername
+> echo Copied $file to $foldername/;			# dispaly message 
+> done							#done(close for loop)
+Copied fruits.txt to fruits/				#
+Copied rahul.txt to rahul/				#
+Copied rahul2.txt to rahul2/				#
+========================================================================================================
+
+Q. Append current date to all log files name which has extension .log.1 from a folder
+
+$ for file in `ls *.log.1`;
+> do
+> basename=`echo $file | awk -F. '{ print $1 }'`;
+> mv $file $basename$now.log.1;
+> echo starting backup to $file
+> done
+starting backup to r1.log.1
+starting backup to r2.log.1
+starting backup to r3.log.1
+
+
+
+========================================================================================================
+Q.modified 7 days ago and move it to your backup folder
+$ find / -mtime -7 -ls
+
+
+
+
+=======================================================================================================
+Q. print last 4 frequently access urls count in sorted order from access.log
+Command-
+$ cat access.log | awk '{print $11}' | sort -n  | tail -4
+
+
+
+=======================================================================================================
+Q.print list of last 4 access unique urls at particular hours from access.log
+Command-
+
+
+==============================================================================================
+Q print last 4 sorted client ip from access.log
+
+grep -o "[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+" access.log |uniq -c | sort -nr | head -4
+OUTPUT-  1 77.0.3865.92
+      1 77.0.3865.92
+      1 77.0.3865.92
+      1 77.0.3865.92
+
+
+
+
+============================================================================================
+Q. Check if a folder exist or not . if its not present create it 
+Command
+
+
+ [[ -f arc.sh ]] && echo "This file exists!"
+
+
+
+===============================================================================================
+Q Execute command “hello ” and “”ls” and check its execution status and print whether command executed successful or not
+Command-
+1)
+$ echo hello
+Hello
+
+$ echo $?
+
+
+
+===================================================================================================
+Q.  Set environment usersecret=”dH34xJaa23” if its already not set
+Command to check
+$ printenv usersecret
+//null if not set 
+Command to set 
+ $ env usersecret="dH34xJaa23"
+
+
+
+===============================================================================================
+Q find a word “systemd” from all log files in the folder and print number of occurrence more than 0 against each file.
+Command-
+
+$ grep -wc "systemd" access.log
+0
+
+===============================================================================================
+Q Create process list table displays process id, parent process id, command name, % of memory consumption, % of cpu utilization.
+
+$ ps -eo pid,ppid,cmd,%mem,%cpu
+
+
+
+================================================================================================
+Q Data analysis / manipulation(AWK)
+i) print EmployeeName and TotalPay who has BasePay greater than 100000
+
+$ awk '$4 > 100000 { print $2 "    " $7 }' data.csv
+
+ii)what is the aggregate totalpay of employees whose jobtitle is ‘CAPTAIN’
+
+$ awk '$3 == "CAPTAIN" {sum=sum+$7} END { print sum }' data.csv
+1171796
+iii) print jobtitle and overtimepay who has overtimepay is between 7000 and10000
+
+$ awk ' $5>7000 && $5<10000 { print $3 "    " $5 }' data.csv
+DEPUTYCHIEF    9737
+ASSTDEPUTY    8601
+
+iv)print average base salary
+	$ awk ' {sum=sum+$4 } { avg = sum / 13 } END { print avg }' data.csv
+   145821
+
+
+
+===============================================================================================
+
+
+
+Q Find the diff between original file and the updated file 
+Apply changes to the original file.
+
+$ diff original/original.sh updated/update.sh
+1,2c1,3
+< #! /bin/bash
+< echo "hellow this is original file"
+---
+> #! /bin/bash -x
+> read -p "enter number" a
+> echo "$a"
